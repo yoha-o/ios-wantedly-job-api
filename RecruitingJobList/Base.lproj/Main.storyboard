@@ -15,13 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="検索ワードを入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dyt-bF-dYt">
-                                <rect key="frame" x="12" y="110" width="390" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uQ1-SB-hfi">
-                                <rect key="frame" x="0.0" y="174" width="414" height="688"/>
+                                <rect key="frame" x="0.0" y="196" width="414" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="jobCell" rowHeight="300" id="4r4-gU-Yi0">
@@ -93,25 +88,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Caz-0I-qUK">
+                                <rect key="frame" x="0.0" y="110" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="iW7-EE-ecB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="6CD-Ir-uXx"/>
                             <constraint firstItem="uQ1-SB-hfi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="APR-hT-Cq3"/>
                             <constraint firstItem="uQ1-SB-hfi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EHO-3v-MGy"/>
+                            <constraint firstItem="Caz-0I-qUK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Gd1-aN-NOC"/>
+                            <constraint firstItem="Caz-0I-qUK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GyG-S9-IBu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iW7-EE-ecB" secondAttribute="trailing" constant="332" id="Ku5-gl-e1O"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dyt-bF-dYt" secondAttribute="trailing" constant="12" id="T0s-jV-eN4"/>
-                            <constraint firstItem="dyt-bF-dYt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="TTf-Hk-emf"/>
                             <constraint firstItem="iW7-EE-ecB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="U6P-nK-BFI"/>
                             <constraint firstItem="uQ1-SB-hfi" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Zh9-qK-2K3"/>
-                            <constraint firstItem="uQ1-SB-hfi" firstAttribute="top" secondItem="dyt-bF-dYt" secondAttribute="bottom" constant="30" id="ZhB-eH-k4V"/>
-                            <constraint firstItem="dyt-bF-dYt" firstAttribute="top" secondItem="iW7-EE-ecB" secondAttribute="bottom" constant="20" id="uRm-8y-vtl"/>
+                            <constraint firstItem="uQ1-SB-hfi" firstAttribute="top" secondItem="Caz-0I-qUK" secondAttribute="bottom" constant="30" id="bJp-56-pnE"/>
+                            <constraint firstItem="Caz-0I-qUK" firstAttribute="top" secondItem="iW7-EE-ecB" secondAttribute="bottom" constant="20" id="qZw-Sn-pKt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="Caz-0I-qUK" id="Nra-C2-Msr"/>
                         <outlet property="tableView" destination="uQ1-SB-hfi" id="tBq-wK-SjI"/>
-                        <outlet property="textField" destination="dyt-bF-dYt" id="vlY-qM-42k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

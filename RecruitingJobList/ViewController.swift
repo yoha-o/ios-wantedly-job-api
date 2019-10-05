@@ -10,10 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var apiUrlStr = "https://www.wantedly.com/api/v1/projects"
+    var jobListPageNo = 1
     var jobList = [Job]() {
         didSet {
             self.tableView.reloadData()
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
     }
     
     func fetchInitialData() {
-        let url: URL = URL(string: self.apiUrlStr + "?page=1")!
+        let url: URL = URL(string: self.apiUrlStr + "?page=" + String(self.jobListPageNo))!
         URLSession.shared.dataTask(with: url) {data, response, err in
             do {
                 let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
@@ -56,14 +57,14 @@ extension ViewController: UITableViewDataSource {
     
         let companyImage = cell.viewWithTag(1) as! UIImageView
         let companyImageData = NSData(contentsOf: job.company.avatar.s_100)
-        companyImage.image = UIImage(data: companyImageData as! Data)
+        companyImage.image = UIImage(data: companyImageData! as Data)
         
         let companyLabel = cell.viewWithTag(2) as! UILabel
         companyLabel.text = job.company.name
         
         let jobImage = cell.viewWithTag(3) as! UIImageView
         let jobImageData = NSData(contentsOf: job.image.i_320_131)
-        jobImage.image = UIImage(data: jobImageData as! Data)
+        jobImage.image = UIImage(data: jobImageData! as Data)
         
         let positionLabel = cell.viewWithTag(4) as! UILabel
         positionLabel.text = job.looking_for
@@ -85,6 +86,21 @@ extension ViewController: UITableViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        return
+        if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging {
+            self.jobListPageNo += 1
+            let url: URL = URL(string: self.apiUrlStr + "?page=" + String(self.jobListPageNo))!
+            URLSession.shared.dataTask(with: url) {data, response, err in
+                do {
+                    let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
+                    if dataModel.data.count != 0 {
+                        DispatchQueue.main.async() { () -> Void in
+                            self.jobList = dataModel.data
+                        }
+                    }
+                }
+                catch {
+                }
+            }.resume()
+        }
     }
 }
