@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCBBA7BA2334B92300A914C1 /* JsonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBBA7B92334B92300A914C1 /* JsonResponse.swift */; };
 		BCE45CD5232EB3F80061F08E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE45CD4232EB3F80061F08E /* AppDelegate.swift */; };
 		BCE45CD7232EB3F80061F08E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE45CD6232EB3F80061F08E /* SceneDelegate.swift */; };
 		BCE45CD9232EB3F80061F08E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE45CD8232EB3F80061F08E /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BCBBA7B92334B92300A914C1 /* JsonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonResponse.swift; sourceTree = "<group>"; };
 		BCE45CD1232EB3F80061F08E /* RecruitingJobList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecruitingJobList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE45CD4232EB3F80061F08E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE45CD6232EB3F80061F08E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				BCE45CDD232EB3FA0061F08E /* Assets.xcassets */,
 				BCE45CDF232EB3FA0061F08E /* LaunchScreen.storyboard */,
 				BCE45CE2232EB3FA0061F08E /* Info.plist */,
+				BCBBA7B92334B92300A914C1 /* JsonResponse.swift */,
 			);
 			path = RecruitingJobList;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				BCE45CD9232EB3F80061F08E /* ViewController.swift in Sources */,
 				BCE45CD5232EB3F80061F08E /* AppDelegate.swift in Sources */,
 				BCE45CD7232EB3F80061F08E /* SceneDelegate.swift in Sources */,
+				BCBBA7BA2334B92300A914C1 /* JsonResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
