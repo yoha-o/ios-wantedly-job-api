@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var apiUrlStr = "https://www.wantedly.com/api/v1/projects"
+    var jobSearchWord = ""
     var jobListPageNo = 1
     var jobList = [Job]() {
         didSet {
@@ -23,20 +24,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchInitialData()
+        fetchInitialData(queryWord: "", pageNo: 1)
     }
     
-    func fetchInitialData() {
-        let url: URL = URL(string: self.apiUrlStr + "?page=" + String(self.jobListPageNo))!
+    func fetchInitialData(queryWord: String, pageNo: Int) {
+        let url: URL = URL(string: self.apiUrlStr + "?q=" + queryWord + "&page=" + String(pageNo))!
         URLSession.shared.dataTask(with: url) {data, response, err in
             do {
                 let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
-                DispatchQueue.main.async() { () -> Void in
-                    self.jobList = dataModel.data
+                if dataModel.data.count != 0 {
+                    DispatchQueue.main.async() { () -> Void in
+                        self.jobList = dataModel.data
+                    }
                 }
             }
             catch {
-                print(error)
             }
         }.resume()
     }
@@ -76,31 +78,21 @@ extension ViewController: UITableViewDataSource {
     }
    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        return 320
     }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // セルがタップされたときの処理
+        // cellがタップされたときの処理
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 一番下のcellまでスクロールしたら次ページのデータを読み込み、スクロールを一番上に戻す
         if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging {
             self.jobListPageNo += 1
-            let url: URL = URL(string: self.apiUrlStr + "?page=" + String(self.jobListPageNo))!
-            URLSession.shared.dataTask(with: url) {data, response, err in
-                do {
-                    let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
-                    if dataModel.data.count != 0 {
-                        DispatchQueue.main.async() { () -> Void in
-                            self.jobList = dataModel.data
-                        }
-                    }
-                }
-                catch {
-                }
-            }.resume()
+            fetchInitialData(queryWord: self.jobSearchWord, pageNo: self.jobListPageNo)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
 }
