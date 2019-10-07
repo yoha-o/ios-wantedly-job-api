@@ -19,3 +19,8 @@ Xcode 11.0 GM seed
   * 通信処理での例外ハンドリングをしていないため、画面からでは読み込みで若干固まってしまう
 * 今回は時間の兼ね合いもあり、募集詳細画面は未実装
 * SwiftUIで挑戦しようとしたが、学習コストを考慮すると時間がかかりそうだったので、Storyboardで作成
+
+
+デモ
+-
+![RecruitingJobList](https://user-images.githubusercontent.com/28544872/66290397-22932180-e91a-11e9-90dc-2dd0224226c4.gif)
