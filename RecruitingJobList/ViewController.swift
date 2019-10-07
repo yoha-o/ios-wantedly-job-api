@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var apiUrlStr = "https://www.wantedly.com/api/v1/projects"
     var jobSearchWord = ""
     var jobListPageNo = 1
     var jobList = [Job]() {
@@ -24,11 +23,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchInitialData(queryWord: "", pageNo: 1)
+        fetchJobListData(queryWord: "", pageNo: 1)
     }
     
-    func fetchInitialData(queryWord: String, pageNo: Int) {
-        let url: URL = URL(string: self.apiUrlStr + "?q=" + queryWord + "&page=" + String(pageNo))!
+    
+    @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    func fetchJobListData(queryWord: String, pageNo: Int) {
+        let apiUrlStr = "https://www.wantedly.com/api/v1/projects"
+        let url: URL = URL(string: apiUrlStr + "?q=" + queryWord + "&page=" + String(pageNo))!
+        print(url)
         URLSession.shared.dataTask(with: url) {data, response, err in
             do {
                 let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
@@ -91,8 +97,20 @@ extension ViewController: UITableViewDelegate {
         // 一番下のcellまでスクロールしたら次ページのデータを読み込み、スクロールを一番上に戻す
         if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging {
             self.jobListPageNo += 1
-            fetchInitialData(queryWord: self.jobSearchWord, pageNo: self.jobListPageNo)
+            fetchJobListData(queryWord: self.jobSearchWord, pageNo: self.jobListPageNo)
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
+    }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.jobSearchWord = searchText
+        self.jobListPageNo = 1
+        fetchJobListData(queryWord: self.jobSearchWord, pageNo: self.jobListPageNo)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
     }
 }

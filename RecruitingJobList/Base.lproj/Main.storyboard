@@ -96,9 +96,13 @@
                             <searchBar contentMode="redraw" placeholder="検索ワードを入力" translatesAutoresizingMaskIntoConstraints="NO" id="Caz-0I-qUK">
                                 <rect key="frame" x="0.0" y="113" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="JPg-oa-470"/>
+                                </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="iW7-EE-ecB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="6CD-Ir-uXx"/>
                             <constraint firstItem="uQ1-SB-hfi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="APR-hT-Cq3"/>
@@ -112,6 +116,9 @@
                             <constraint firstItem="Caz-0I-qUK" firstAttribute="top" secondItem="iW7-EE-ecB" secondAttribute="bottom" constant="20" id="qZw-Sn-pKt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dd1-3s-Ut7" appends="YES" id="wkw-oa-Y30"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="Caz-0I-qUK" id="Nra-C2-Msr"/>
@@ -119,6 +126,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dd1-3s-Ut7">
+                    <connections>
+                        <action selector="tapScreen:" destination="BYZ-38-t0r" id="npR-GY-S6y"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
