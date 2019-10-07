@@ -26,16 +26,15 @@ class ViewController: UIViewController {
         fetchJobListData(queryWord: "", pageNo: 1)
     }
     
-    
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
     func fetchJobListData(queryWord: String, pageNo: Int) {
-        let apiUrlStr = "https://www.wantedly.com/api/v1/projects"
-        let url: URL = URL(string: apiUrlStr + "?q=" + queryWord + "&page=" + String(pageNo))!
-        print(url)
-        URLSession.shared.dataTask(with: url) {data, response, err in
+        let apiUrlStr = "https://www.wantedly.com/api/v1/projects" + "?q=" + queryWord + "&page=" + String(pageNo)
+        let encodedUrlStr: String = apiUrlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url: URL = URL(string: encodedUrlStr)!
+        let task = URLSession.shared.dataTask(with: url) {data, response, err in
             do {
                 let dataModel: JsonResponse = try JSONDecoder().decode(JsonResponse.self, from: data!)
                 if dataModel.data.count != 0 {
@@ -45,8 +44,10 @@ class ViewController: UIViewController {
                 }
             }
             catch {
+                // ここで通信時の例外ハンドリング
             }
-        }.resume()
+        }
+        task.resume()
     }
 }
 
@@ -96,9 +97,9 @@ extension ViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 一番下のcellまでスクロールしたら次ページのデータを読み込み、スクロールを一番上に戻す
         if tableView.contentOffset.y + tableView.frame.size.height > tableView.contentSize.height && tableView.isDragging {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             self.jobListPageNo += 1
             fetchJobListData(queryWord: self.jobSearchWord, pageNo: self.jobListPageNo)
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
 }
